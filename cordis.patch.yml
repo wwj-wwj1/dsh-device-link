@@ -1,0 +1,45 @@
+# dsh-device-link 的 bundle 补丁层
+#
+# 只负责把插件本体插进 profile；安装走 DSH 官方的 plugin_manager install_bundle。
+# 下面所有值都可以按需改，升级插件不会覆盖这一层。
+#
+#   lanPort        局域网入口端口（手机同 WiFi 直连用）。默认 8900。
+#   portRetry      首选端口被别的程序占着时，最多往上顺延几个端口（0 = 不顺延，直接报错）。
+#   meshPort       组网入口端口（在 EasyTier 虚拟网卡 IP 上监听）。默认 8899。
+#   meshIp         EasyTier 给本机分配的虚拟 IP。留空 = 自动从 et_* 网卡上读。
+#   serviceName    EasyTier 的 Windows 服务名。留空 = 自动探测（EasyTierService / EasyTier / 名字带 easytier 的服务）。
+#   gateScript     网关脚本路径。留空 = 用随包分发的 lib/gate.cjs。
+#   nodePath       显式指定跑网关的 node.exe。留空 = 自动挑一个「防火墙放行过入站」的 node。
+#   tunnelPort     EasyTier 的数据端口（默认 11010），只用来数「组网里有几个对端」。
+#   restoreState   true = DSH 重启后自动恢复上次开着的通道。
+#   wingetId       未安装 EasyTier 时「一键安装」用的 winget 包 ID。
+#   installUrl     没有 winget 时的下载页（点「打开下载页」跳这里）。
+#   corePath       显式指定 easytier-core.exe。留空 = 自动搜常见安装目录和 winget 包目录。
+#   configPath     生成的 easytier.toml 放哪。留空 = %LOCALAPPDATA%\dsh-device-link\easytier.toml。
+#   meetPeers      生成配置时写入的公共汇合点（只放公共节点，别放私人网络信息）。
+- insert:
+    - id: device-link
+      name: 'dsh-device-link'
+      config:
+        lanHost: '0.0.0.0'
+        lanPort: 8900
+        portRetry: 5
+        meshPort: 8899
+        meshIp: ''
+        serviceName: ''
+        gateScript: ''
+        nodePath: ''
+        tunnelPort: 11010
+        restoreState: true
+        wingetId: 'EasyTier.EasyTier'
+        installUrl: 'https://github.com/EasyTier/EasyTier/releases/latest'
+        corePath: ''
+        configPath: ''
+        meetPeers:
+          - 'tcp://sh.vomiku.com:7910'
+          - 'tcp://js.629957.xyz:11012'
+          - 'tcp://47.92.208.217:11010'
+          - 'tcp://et.lctn.cc.cd:6377'
+          - 'udp://et.lctn.cc.cd:6161'
+          - 'tcp://47.103.35.100:11010'
+          - 'tcp://38.147.105.178:11010'

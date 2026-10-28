@@ -1,0 +1,69 @@
+{
+  "name": "dsh-device-link",
+  "version": "1.0.0",
+  "description": "DSH 侧边栏「设备互联」开关：一键把本机的 DSH 开给同网段的手机（局域网直连）或经 EasyTier 组网的异地设备访问，关掉即收回。",
+  "meta": {
+    "title": "设备互联",
+    "description": "左下角 WiFi 图标，点开是设备互联卡片：互联 / 局域网互联 / 组网互联三个开关。本地起一个带鉴权的转发网关，手机就能访问 DSH 桌面版。"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "default": "./lib/client.js"
+    },
+    "./icon": "./icon.svg",
+    "./package.json": "./package.json"
+  },
+  "icon": "./icon.svg",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "slots"
+      ],
+      "platform": "web",
+      "immediately": true
+    }
+  },
+  "files": [
+    "lib",
+    "scripts",
+    "cordis.patch.yml",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "icon.svg"
+  ],
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "device-link",
+    "remote-access",
+    "easytier",
+    "lan",
+    "mobile"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "os": [
+    "win32"
+  ],
+  "author": "Wenjie Wang (https://github.com/wwj-wwj1)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wwj-wwj1/dsh-device-link.git"
+  },
+  "homepage": "https://github.com/wwj-wwj1/dsh-device-link#readme",
+  "bugs": {
+    "url": "https://github.com/wwj-wwj1/dsh-device-link/issues"
+  }
+}
